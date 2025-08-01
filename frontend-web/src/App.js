@@ -1,12 +1,12 @@
-import BottomNavigation from '@mui/material/BottomNavigation';
 import { BrowserRouter as Router, Routes, Route, BrowserRouter } from 'react-router-dom';
-import {BottomNav} from "./components/navbar/BottomNav";
+//import {BottomNav} from "./components/navbar/BottomNav";
+import { Layout } from './components/layout/layout';
 
 const App = () =>{
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<BottomNav />}/>
+        <Route path="/" element={<Layout />}/>
       </Routes>
     </BrowserRouter>
   );
