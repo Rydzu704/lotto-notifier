@@ -20,7 +20,7 @@ export const BottomNav = () => {
     >
       <Box
         sx={{
-          width: '75%',
+          width: '30%',
           border: '1px solid',
           bgcolor: '#fff8e1',
           borderColor: 'grey.300',
@@ -38,7 +38,7 @@ export const BottomNav = () => {
           }}
         >
           <BottomNavigationAction to="/home" component={Link} label="Home"icon={<HomeIcon />} />
-          <BottomNavigationAction label="History" icon={<RestoreIcon />} />
+          <BottomNavigationAction to="/history" component={Link} label="History" icon={<RestoreIcon />} />
           <BottomNavigationAction label="Nearby" icon={<LocationOnIcon />} />
         </BottomNavigation>
       </Box>
