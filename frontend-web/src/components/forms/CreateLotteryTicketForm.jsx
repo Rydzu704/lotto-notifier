@@ -27,13 +27,13 @@ const textfieldStyle = {
     flexShrink: 0,
     color:'#003366',
     '& input[type=number]': {
-      '-moz-appearance': 'textfield',  // Firefox
+      MozAppearance: 'textfield',  // Firefox
       '&::-webkit-outer-spin-button': {
-        '-webkit-appearance': 'none',
+        WebkitAppearance: 'none',
         margin: 0,
       },
       '&::-webkit-inner-spin-button': {
-        '-webkit-appearance': 'none',
+        WebkitAppearance: 'none',
         margin: 0,
       },
     },
@@ -41,7 +41,7 @@ const textfieldStyle = {
 
 
 export const CreateLotteryTicketForm = (props) => {
-    
+   
     return (
         <Box style={boxStyle}>
         <h2 style={{textAlign:'left',color:'#003366', marginLeft:'10%'}}>Add Lottery Ticket</h2>
@@ -61,10 +61,11 @@ export const CreateLotteryTicketForm = (props) => {
             </Grid>
             <Grid marginLeft={'10%'} sx={{ mt: 2 }}>
                 <LocalizationProvider  dateAdapter={AdapterDayjs}>
-                        <Box sx={{ width: '200px' }}>
-                        <DatePicker label="created at" defaultValue={dayjs()}
-                        //value={value}
-                        //onChange={(newValue) => setValue(newValue)}
+                        <Box sx={{ width: '100%' }}>
+                        <DatePicker label="created at" defaultValue={dayjs()}  format="DD-MM-YYYY" 
+                        onChange={
+                            (e) => props.setInputData({...props.inputData,createdAtDate: e.format('YYYY-MM-DD')})
+                        }
                         />
                     </Box>
                 </LocalizationProvider>
@@ -73,12 +74,13 @@ export const CreateLotteryTicketForm = (props) => {
                 <label style={{color:'#003366',fontWeight:'bolder'}}>Lotto plus</label>
                     <Checkbox
                         //checked={checked}
-                        //onChange={handleChange}
-                        //inputProps={{ 'aria-label': 'controlled' }}
+                        onChange={
+                            (e)=> props.setInputData({...props.inputData,lottoPlusIsTrue:e.target.checked})
+                        }
                     />
             </Grid>
             <Grid marginLeft={'10%'} sx={{mt: 2}}>
-                <Button variant="contained" sx={{ width: '70%', bgcolor:'#003366' }}>Add</Button>
+                <Button variant="contained" type="submit"  sx={{ width: '70%', bgcolor:'#003366' }}>Add</Button>
             </Grid>
         </Box>
        
