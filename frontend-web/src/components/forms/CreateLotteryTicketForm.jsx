@@ -23,7 +23,7 @@ const boxStyle = {
     borderRadius: 30,
 };
 const textfieldStyle = {
-    width:'40px',
+    width:'45px',
     flexShrink: 0,
     color:'#003366',
     '& input[type=number]': {
@@ -40,21 +40,29 @@ const textfieldStyle = {
 }
 
 
-export const CreateLotteryTicketForm = () => {
+export const CreateLotteryTicketForm = (props) => {
     
     return (
-       
         <Box style={boxStyle}>
         <h2 style={{textAlign:'left',color:'#003366', marginLeft:'10%'}}>Add Lottery Ticket</h2>
             <Grid marginLeft={'10%'}> 
                 {Array(6).fill().map((_, i) => (
-                    <TextField key={i} sx={textfieldStyle} type="number" />
+                    <TextField 
+                    key={i} sx={textfieldStyle} 
+                    type="number" 
+                    name={`number_${i+1}`} 
+                    onChange={
+                        (e) => props.setInputData({...props.inputData,[e.target.name]: e.target.value})
+                        //console.log(e.target.value, e.target.value.length,e.target.name)
+                        //if(e.target.name.value.length == )
+                        }
+                    />
                 ))}
             </Grid>
             <Grid marginLeft={'10%'} sx={{ mt: 2 }}>
                 <LocalizationProvider  dateAdapter={AdapterDayjs}>
                         <Box sx={{ width: '200px' }}>
-                        <DatePicker label="draw date" defaultValue={dayjs()}
+                        <DatePicker label="created at" defaultValue={dayjs()}
                         //value={value}
                         //onChange={(newValue) => setValue(newValue)}
                         />

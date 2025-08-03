@@ -5,6 +5,7 @@ import BottomNavigationAction from '@mui/material/BottomNavigationAction';
 import RestoreIcon from '@mui/icons-material/Restore';
 import HomeIcon from '@mui/icons-material/Home';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
+import SettingsIcon from '@mui/icons-material/Settings';
 import { Link } from 'react-router-dom';
 
 export const BottomNav = () => {
@@ -37,9 +38,9 @@ export const BottomNav = () => {
             setValue(newValue);
           }}
         >
-          <BottomNavigationAction to="/home" component={Link} label="Home"icon={<HomeIcon />} />
-          <BottomNavigationAction to="/history" component={Link} label="History" icon={<RestoreIcon />} />
-          <BottomNavigationAction label="Nearby" icon={<LocationOnIcon />} />
+          <BottomNavigationAction to="/" component={Link} label="Home"icon={<HomeIcon />} />
+          <BottomNavigationAction to="/" component={Link} label="History" icon={<RestoreIcon />} />
+          <BottomNavigationAction label="settings" icon={<SettingsIcon />} />
         </BottomNavigation>
       </Box>
     </Box>

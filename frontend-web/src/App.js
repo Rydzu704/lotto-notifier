@@ -1,14 +1,14 @@
 import { BrowserRouter as Router, Routes, Route, BrowserRouter } from 'react-router-dom';
 //import {BottomNav} from "./components/navbar/BottomNav";
 import { Layout } from './components/layout/layout';
-import { CreateLotteryTicketForm } from './components/forms/CreateLotteryTicketForm';
+import { CreateLotteryTicketPage } from './pages/CreateLotteryTicketPage';
 
 const App = () =>{
   return (
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Layout />}>
-          <Route path="/home" element={<CreateLotteryTicketForm />}/>
+          <Route path="/" element={<CreateLotteryTicketPage />}/>
         </Route>
       </Routes>
     </BrowserRouter>
