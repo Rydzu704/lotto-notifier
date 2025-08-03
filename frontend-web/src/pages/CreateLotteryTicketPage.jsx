@@ -14,10 +14,20 @@ import dayjs from 'dayjs';
             lottoPlusIsTrue: false,
             
         });
+        const handleSubmit = (event) => {
+            for(let i = 1;i<=6;i++){
+                if(inputData[`number_${i}`] != null){
+                    console.log(inputData);
+                }else{
+                    console.log(`Number ${i} is missing`)
+                }
+            }
+        }
         
-        console.log(inputData);
+        
         return (
             <CreateLotteryTicketForm
+            handleSubmit={handleSubmit}
             setInputData={setInputData}
             inputData={inputData}
             />
