@@ -1,7 +1,7 @@
 var express = require("express")
 var router = express.Router();
 
-const ticketController = reqire("../../../../controllers/ticketController.js");
+const ticketController = require("../../../../controllers/ticketController.js");
 
 router.post(
     "/",
