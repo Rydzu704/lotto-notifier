@@ -82,6 +82,7 @@ export const CreateLotteryTicketForm = (props) => {
             <Grid marginLeft={'10%'} sx={{mt: 2}}>
                 <Button variant="contained" type="submit"  onClick={props.handleSubmit} sx={{ width: '70%', bgcolor:'#003366' }}>Add</Button>
             </Grid>
+            <div id="error" style={{color: '#a30404ff', marginTop: '10px'}}></div>
         </Box>
        
     );
