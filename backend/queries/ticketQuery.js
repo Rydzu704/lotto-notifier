@@ -2,16 +2,35 @@ const db = require('../services/db');
 
 const addTicket = (ticketData) => {
   const query = `
-    INSERT INTO lottery_tickets (draw_id, ticket_numbers, with_plus)
+    INSERT INTO lotterytickets (draw_id, ticket_numbers, if_lotto_plus)
     VALUES (?, ?, ?)
   `;
   return db.promise().query(query, [
     ticketData.draw_id,
-    ticketData.numbers,
-    ticketData.isLottoPlus,
+    ticketData.numbers.join(','),
+    ticketData.lottoPlusIsTrue,
   ]);
+};
+
+const addDraw = (drawData) => {
+  const query = `
+    INSERT INTO draws (id, draw_date)
+    VALUES (?, ?)
+  `;
+  return db.promise().query(query, [
+    drawData.draw_id,
+    drawData.draw_date
+  ]);
+};
+
+const checkDrawExists = async (draw_id) => {
+  const query = `SELECT 1 FROM draws WHERE id = ? LIMIT 1`;
+  const [rows] = await db.promise().query(query, [draw_id]);
+  return rows.length > 0;
 };
 
 module.exports = {
   addTicket,
+  addDraw,
+  checkDrawExists,
 };
