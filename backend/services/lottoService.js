@@ -1,5 +1,6 @@
 const axios = require("axios");
 const cheerio = require("cheerio");
+const { addDraw } = require("../queries/ticketQuery");
 
 async function getDrawNumber() {
   const url = "https://www.multipasko.pl/wyniki-lotto/lotto-plus/";
@@ -22,23 +23,28 @@ async function getDrawNumber() {
 }
 
 const getNextDrawDate = () => {
-  const today = new Date();
+    const today = new Date();
     const day = today.getDay(); 
     const minute = today.getMinutes();
-
-    const drawDays = [2, 4, 6]; 
-
-    if (day === 2 && (hour < 21 || (hour === 21 && minute < 30))) {
-        return today;
-    }
+    const hour = today.getHours();;
 
     let nextDate = new Date(today);
-    while (true) {
-        nextDate.setDate(nextDate.getDate() + 1);
-        if (drawDays.includes(nextDate.getDay())) {
-            return nextDate;
-        }
+    let addDays = 0;
+    const beforeDraw = hour < 21 || (hour === 21 && minute < 30);
+
+    switch (day) {
+      case 0: addDays = 2; break;
+      case 1: addDays = 1; break;
+      case 2: if(beforeDraw){addDays = 0}else{addDays = 2}
+      case 3: addDays = 1; break;
+      case 4: if(beforeDraw){addDays = 0}else{addDays = 2}
+      case 5: addDays = 1; break; 
+      case 6: if(beforeDraw){addDays = 0}else{addDays = 3} 
     }
+
+    nextDate.setDate(nextDate.getDate() + addDays);
+    nextDate.setHours(25, 0, 0, 0);
+    return nextDate;
 }
 
 module.exports = { getDrawNumber ,getNextDrawDate};

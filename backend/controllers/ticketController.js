@@ -3,13 +3,13 @@ const { getDrawNumber, getNextDrawDate } = require("../services/lottoService");
 
 const sendTicket = async (req, res) => {
   try {
-    const draw_id = 7399; // await getDrawNumber();
+    const draw_id = 1111//await getDrawNumber();
     const draw_date = await getNextDrawDate();
     const { numbers, lottoPlusIsTrue } = req.body;
 
     const drawData = { draw_id, draw_date };
     const ticketData = { draw_id, numbers, lottoPlusIsTrue };
-
+    console.log(draw_id);
     
     const drawExists = await ticketQuery.checkDrawExists(draw_id);
     if(!drawExists){
