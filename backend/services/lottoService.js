@@ -1,6 +1,5 @@
 const axios = require("axios");
 const cheerio = require("cheerio");
-const { addDraw } = require("../queries/ticketQuery");
 
 async function getDrawNumber() {
   const url = "https://www.multipasko.pl/wyniki-lotto/lotto-plus/";
@@ -20,6 +19,40 @@ async function getDrawNumber() {
 
   const drawNumber = $("td.nrlos").first().text().trim().split("\n")[0];
   return drawNumber;
+}
+
+
+async function getDrawResults() {
+  const url = "https://www.multipasko.pl/wyniki-lotto/lotto-plus/";
+
+  const { data: html } = await axios.get(url, {
+    headers: {
+      "User-Agent":
+        "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36",
+      "Accept":
+        "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+      "Accept-Language": "pl-PL,pl;q=0.9,en-US;q=0.8,en;q=0.7",
+      "Connection": "keep-alive"
+    }
+  });
+
+  const $ = cheerio.load(html);
+
+      const container = $("td.wyn3").first();
+      const num = container.find("ul.showdl li").map(function() {
+          return parseInt($(this).text(), 10);
+      }).get();
+
+      const num_plus = container.find("ul.lplus.showlp li").map(function() {
+        return parseInt($(this).text(), 10);
+      }).get();
+
+      const drawResults = {
+        numbers: num,
+        numbers_plus: num_plus
+      };
+
+  return drawResults;
 }
 
 const getNextDrawDate = () => {
@@ -43,8 +76,9 @@ const getNextDrawDate = () => {
     }
 
     nextDate.setDate(nextDate.getDate() + addDays);
-    nextDate.setHours(25, 0, 0, 0);
+    nextDate.setHours(23, 0, 0, 0);
     return nextDate;
 }
 
-module.exports = { getDrawNumber ,getNextDrawDate};
+
+module.exports = { getDrawNumber ,getNextDrawDate, getDrawResults};

@@ -28,6 +28,10 @@ const checkDrawExists = async (draw_id) => {
   const [rows] = await db.promise().query(query, [draw_id]);
   return rows.length > 0;
 };
+const updateDrawResults = () =>{
+
+}
+
 
 module.exports = {
   addTicket,
