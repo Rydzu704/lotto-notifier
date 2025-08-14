@@ -5,7 +5,7 @@ const cors = require("cors");
 app.use(express.json());
 app.use(cors());
 
-const ticketController = require("./controllers/ticketController");
+const ticketController = require("../controllers/ticketController");
 
 app.post("/api/ticket", ticketController.sendTicket);
 

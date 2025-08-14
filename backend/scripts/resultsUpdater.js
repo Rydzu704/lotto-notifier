@@ -1,6 +1,6 @@
 require('dotenv').config();
 const { sendResults } = require('../controllers/drawResultController.js');
-const { checkIfResultsPending } = require('../queries/ticketQuery.js');
+const { checkIfResultsPending } = require('../queries/drawQuery.js');
 const { processTicketsAndSetNotification } = require('../services/notificationService.js');
 
 async function updateResultsAndNotify() {

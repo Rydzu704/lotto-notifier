@@ -1,4 +1,4 @@
-const ticketQuery = require("../queries/ticketQuery");
+const drawQuery = require("../queries/drawQuery");
 const { getDrawResults } = require("../services/lottoService");
 
 const sendResults = async () => {
@@ -6,7 +6,7 @@ const sendResults = async () => {
     const { numbers, numbers_plus } = await getDrawResults(); 
     const drawResults = { numbers, numbers_plus };
     
-    const [savedResults] = await ticketQuery.updateDrawResults(drawResults);
+    const [savedResults] = await drawQuery.updateDrawResults(drawResults);
 
     return { message: "Results updated", results: savedResults };
   } catch (error) {
