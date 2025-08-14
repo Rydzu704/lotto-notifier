@@ -1,7 +1,8 @@
-const { getDrawNumber } = require("./lottoService");
-const { getNextDrawDate } = require("./lottoService");
-const { getDrawResults } = require("./lottoService");
-const { sendResults } = require("../controllers/drawResultController");
+// const { getDrawNumber } = require("./lottoService");
+// const { getNextDrawDate } = require("./lottoService");
+// const { getDrawResults } = require("./lottoService");
+// const { sendResults } = require("../controllers/drawResultController");
+const {processTicketsAndNotify} = require("./notificationService");
 
 (async () => {
   try {
@@ -12,8 +13,9 @@ const { sendResults } = require("../controllers/drawResultController");
     // const result = await getDrawResults();
     // console.log(result);
     //const number = await getDrawNumber();
-    const results = await sendResults();
-    console.log(results);
+    //const results = await sendResults();
+     await processTicketsAndNotify();
+      
   } catch (err) {
     console.error("Błąd:", err.message);
   }
