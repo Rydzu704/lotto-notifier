@@ -37,11 +37,16 @@ const updateDrawResults = (drawResults) =>{
         drawResults.numbers_plus.join(',')
       ]);
 }
-
+const checkIfResultsPending = async () => {
+  const query = `SELECT * FROM draws WHERE isPending = 1 AND draw_date <= NOW()`;
+  const [rows] = await db.promise().query(query);
+  return rows.length > 0;
+};
 
 module.exports = {
   addTicket,
   addDraw,
   checkDrawExists,
   updateDrawResults,
+  checkIfResultsPending
 };
