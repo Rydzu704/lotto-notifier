@@ -43,27 +43,39 @@ const checkIfResultsPending = async () => {
   return rows.length > 0;
 };
 const getAllNumbers = async () => {
-  const query = `SELECT lotterytickets.ticket_numbers, draws.numbers, draws.numbers_plus, lotterytickets.draw_id FROM lotterytickets 
+  const query = `SELECT lotterytickets.ticket_numbers, draws.numbers, draws.numbers_plus, lotterytickets.draw_id , lotterytickets.id FROM lotterytickets 
   Inner join draws on lotterytickets.draw_id = draws.id 
   where lotterytickets.is_pending_for_find_matches = 1;`;
    return db.promise().query(query);
 };
-// const addNotification = () => {
-//   const query = `
-//     INSERT INTO draws (id, draw_date)
-//     VALUES (?, ?)
-//   `;
-//   return db.promise().query(query, [
-//     drawData.draw_id,
-//     drawData.draw_date
-//   ]);
-// };
+const addNotification = (notification) => {
+  const query = `
+    INSERT INTO notifications (draw_id,lotto_hits_count,
+    lotto_hits_numbers,lotto_plus_hits_count,lotto_plus_hits_numbers)
+    VALUES (?,?,?,?,?)
+  `;
+  return db.promise().query(query, [
+    notification.draw_id,
+    notification.rightNumbersCount,
+    notification.rightNumbers,
+    notification.rightNumbersPlusCount,
+    notification.rightNumbersPlus
+  ]);
+};
+const updatePendingStatus = (notification) =>{
+      const query = `UPDATE lotterytickets SET is_pending_for_find_matches = false WHERE id = ?`;
 
+      return db.promise().query(query, [
+        notification.id
+      ]);
+    }
 module.exports = {
   addTicket,
   addDraw,
   checkDrawExists,
   updateDrawResults,
   checkIfResultsPending,
-  getAllNumbers
+  getAllNumbers,
+  addNotification,
+  updatePendingStatus
 };
