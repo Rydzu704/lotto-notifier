@@ -1,48 +1,45 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { CreateLotteryTicketForm } from "../components/forms/CreateLotteryTicketForm";
 import { TicketService } from "../services/TicketService";
-    export const CreateLotteryTicketPage = () => {
-        
-        const [inputData, setInputData] = useState({
-            number_1: null,
-            number_2: null,
-            number_3: null,
-            number_4: null,
-            number_5: null,
-            number_6: null,
-            lottoPlusIsTrue: false,
-            
-        });
-        const handleSubmit = (event) => {
-            const numbers = [];
-            event.preventDefault();
-            let ifNumbersExist = false;
-            for(let i = 1;i<=6;i++){
-                const number = inputData[`number_${i}`]
-                if(number != null){
-                    numbers.push(number);
-                    ifNumbersExist = true;
-                    //console.log(ifNumbersExist)
-                }else{
-                    console.log(`Number ${i} is missing`);
-                    ifNumbersExist = false;
-                    //console.log(ifNumbersExist)
-                    document.getElementById("error").innerHTML = "please fill in the remaining numbers "
-                    document.getElementsByName("number_" + i)[0].style.borderRadius = "1";
-                    document.getElementsByName("number_" + i)[0].style.backgroundColor = "#f75050ff";
-                }
-            }
-                const dataToSend = [numbers, inputData[`lottoPlusIsTrue`]]
-             if(ifNumbersExist){
-                TicketService.addTicket(dataToSend);
-            }
+
+export const CreateLotteryTicketPage = () => {
+    const [selectedNumbers, setSelectedNumbers] = useState([]);
+    const [inputData, setInputData] = useState({
+        lottoPlusIsTrue: false,
+    });
+
+    const handleClickNumber = (number) => {
+    let newArray = [...selectedNumbers];
+        if(newArray.includes(number)) {
+            const index = newArray.indexOf(number);
+            newArray.splice(index, 1);
+        }else if(newArray.length < 6) {
+            newArray.push(number);
+    }
+    setSelectedNumbers(newArray);
+    };
+
+    const handleSubmit = (event) => {
+        event.preventDefault();
+        if (selectedNumbers.length < 6) {
+            document.getElementById("error").innerHTML = "Please pick all 6 numbers";
+            return;
         }
-        
-        return (
-            <CreateLotteryTicketForm
+        const dataToSend = {
+            numbers: selectedNumbers,
+            lottoPlusIsTrue: inputData.lottoPlusIsTrue
+        };
+        console.log(dataToSend)
+        TicketService.addTicket(dataToSend);
+    };
+
+    return (
+        <CreateLotteryTicketForm
             handleSubmit={handleSubmit}
+            handleClickNumber={handleClickNumber}
+            selectedNumbers={selectedNumbers}
             setInputData={setInputData}
             inputData={inputData}
-            />
-        )
-    }
+        />
+    );
+};
