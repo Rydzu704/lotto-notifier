@@ -17,8 +17,9 @@ async function getDrawNumber() {
 
   const $ = cheerio.load(html);
 
-  const drawNumber = $("td.nrlos").first().text().trim().split("\n")[0];
-  return drawNumber;
+  const drawNumberText = $("td.nrlos").first().text().trim().split("\n")[0];
+  const drawNumber = parseInt(drawNumberText, 10);
+  return drawNumber + 1;
 }
 
 

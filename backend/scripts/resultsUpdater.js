@@ -12,7 +12,7 @@ async function updateResultsAndNotify() {
         console.log(result.message);
         await processTicketsAndSetNotification();
     }else{
-      console.log("Results has been already updated");
+      console.log("Results has been already updated or results doesnt exist yet");
     }
 
   } catch (err) {

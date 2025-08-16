@@ -7,3 +7,8 @@ router.post(
     "/",
     ticketController.sendTicket
 );
+router.get(
+    "/",
+    ticketController.getTicket
+);
+

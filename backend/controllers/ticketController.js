@@ -25,4 +25,13 @@ const sendTicket = async (req, res) => {
   }
 };
 
-module.exports = { sendTicket };
+const getTicket = async (req, res) => {
+  try {
+    const [rows] =  await ticketQuery.getDataOfPending();
+    res.json(rows);
+  }catch(error){
+    console.error(error)
+  }
+}
+
+module.exports = { sendTicket ,getTicket};

@@ -8,6 +8,7 @@ app.use(cors());
 const ticketController = require("../controllers/ticketController");
 
 app.post("/api/ticket", ticketController.sendTicket);
+app.get("/api/ticket", ticketController.getTicket);
 
 app.get("/", (req, res) => {
   res.send("Lotto Notifier API działa");

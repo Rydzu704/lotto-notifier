@@ -26,8 +26,16 @@ const updatePendingStatus = (notification) =>{
         notification.id
       ]);
     }
+
+const getDataOfPending = async () =>{
+  const query = `SELECT lotterytickets.created_at , lotterytickets.ticket_numbers , draws.draw_date 
+  FROM lotterytickets inner join draws on lotterytickets.draw_id = draws.id 
+  where draws.is_pending_for_results = 1;`;
+  return db.promise().query(query);
+}
 module.exports = {
   addTicket,
   getAllNumbers,
-  updatePendingStatus
+  updatePendingStatus,
+  getDataOfPending
 };
