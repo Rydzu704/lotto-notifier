@@ -12,8 +12,8 @@ def main():
             notifier.send_notifications()
         except Exception as e:
             print(f"Error in sending notification: {e}")
-            
-        time.sleep(10)
+        
+        time.sleep(15)
 
 if __name__ == "__main__":
     main()
