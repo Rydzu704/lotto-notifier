@@ -1,4 +1,4 @@
-import config
+from . import config
 import mysql.connector
 
 def connect_to_db():
@@ -34,6 +34,6 @@ def get_data_to_notification():
         #print(result[index][0])
         id_index = result[index][0]
         index = index + 1
-        #mycursor.execute("UPDATE `notifications` SET `is_notification_pending` = 0 WHERE id = %s", (id_index,))
+        mycursor.execute("UPDATE `notifications` SET `is_notification_pending` = 0 WHERE id = %s", (id_index,))
     db.commit()
     return result

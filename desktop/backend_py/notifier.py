@@ -1,8 +1,9 @@
 from winotify import Notification
-from checker import check_if_notification_pending, get_data_to_notification
+from .checker import check_if_notification_pending, get_data_to_notification
 
 def send_notifications():
     notifications = get_data_to_notification()
+    message = ""
     message_lines = []
 
     for row in notifications:
@@ -16,8 +17,8 @@ def send_notifications():
             message_lines.append(line)
 
             message = "\n".join(message_lines)
-    toast = Notification(app_id="Lotto Notifier", title="Nowe wyniki", msg=message) 
-    toast.show()
+            toast = Notification(app_id="Lotto Notifier", title="Nowe wyniki", msg=message) 
+            toast.show()
     
 if check_if_notification_pending():
     send_notifications()
