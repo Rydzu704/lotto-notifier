@@ -18,7 +18,7 @@ def check_if_notification_pending():
     mycursor.execute("SELECT id FROM `notifications` WHERE `is_notification_pending`;")
 
     result = mycursor.fetchall()
-
+    
     return len(result) > 0
     
 def get_data_to_notification():
@@ -34,9 +34,6 @@ def get_data_to_notification():
         #print(result[index][0])
         id_index = result[index][0]
         index = index + 1
-        mycursor.execute("UPDATE `notifications` SET `is_notification_pending` = 0 WHERE id = %s", (id_index,))
+        #mycursor.execute("UPDATE `notifications` SET `is_notification_pending` = 0 WHERE id = %s", (id_index,))
     db.commit()
     return result
-
-if  check_if_notification_pending():
-    get_data_to_notification()
