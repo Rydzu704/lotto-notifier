@@ -57,7 +57,7 @@ async function getDrawResults() {
 }
 
 const getNextDrawDate = () => {
-    const today = new Date();
+    const today = new Date(new Date().toLocaleString("en-US", { timeZone: "Europe/Warsaw" }));
     const day = today.getDay(); 
     const minute = today.getMinutes();
     const hour = today.getHours();;
@@ -65,19 +65,20 @@ const getNextDrawDate = () => {
     let nextDate = new Date(today);
     let addDays = 0;
     const beforeDraw = hour < 21 || (hour === 21 && minute < 30);
-
+    console.log(day)
+    console.log(beforeDraw)
     switch (day) {
       case 0: addDays = 2; break;
       case 1: addDays = 1; break;
-      case 2: if(beforeDraw){addDays = 0}else{addDays = 2}
+      case 2: if(beforeDraw){addDays = 0}else{addDays = 2}break;
       case 3: addDays = 1; break;
-      case 4: if(beforeDraw){addDays = 0}else{addDays = 2}
+      case 4: if(beforeDraw){addDays = 0}else{addDays = 2}break;
       case 5: addDays = 1; break; 
-      case 6: if(beforeDraw){addDays = 0}else{addDays = 3} 
+      case 6: if(beforeDraw){addDays = 0}else{addDays = 3}break;
     }
 
     nextDate.setDate(nextDate.getDate() + addDays);
-    nextDate.setHours(23, 0, 0, 0);
+    nextDate.setHours(22,10, 0, 0);
     return nextDate;
 }
 
